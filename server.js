@@ -1,12 +1,17 @@
 // Importar dependencias
-import http from "http"
+import https from "https"
 import express from "express"
 import { Server } from "socket.io"
 import axios from "axios"
+import fs from "node:fs"
 
 // Crear objetos requeridos
+const certificado = {
+    key: fs.readFileSync("C:/xampp/apache/CertificadoSSL/Autofirmado/server.key"),
+    cert: fs.readFileSync("C:/xampp/apache/CertificadoSSL/Autofirmado/server.crt")
+}
 const app = express()
-const server = http.createServer(app)
+const server = https.createServer(certificado, app)
 const io = new Server(server, {
     cors: {
         origin: "*", // Permitir todos los orígenes (no recomendado para producción)
