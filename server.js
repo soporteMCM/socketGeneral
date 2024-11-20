@@ -92,7 +92,7 @@ io.on("connection", (socket) => {
 })
 
 // Iniciar el servidor
-const PORT = 3333
+const PORT = 8009
 server.listen(PORT, () => {
-    console.log(`Servidor corriendo en http://localhost:${PORT}`)
+    console.log(`Servidor en linea en el puerto ${PORT}`)
 })
