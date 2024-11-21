@@ -53,8 +53,8 @@ const callcenter = (socket) => {
     sesion.asesor = socket.handshake.query.asesor
     sesion.sesionPHP = socket.handshake.query.sesionPHP
 
-    socket.on("disconnect", (data) => {
-        const r = consultaHTTP(
+    socket.on("disconnect", async (data) => {
+        const r = await consultaHTTP(
             `${sesion.servidor}/callcenter/ActualizaClienteEncuestaPostventa`,
             { asesor: sesion.asesor },
             {
