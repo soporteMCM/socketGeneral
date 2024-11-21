@@ -53,6 +53,22 @@ const callcenter = (socket) => {
     sesion.asesor = socket.handshake.query.asesor
     sesion.sesionPHP = socket.handshake.query.sesionPHP
 
+    consultaHTTP(
+        `${sesion.servidor}/callcenter/AsignaClienteEncuestaPostventa`,
+        { asesor: sesion.asesor },
+        {
+            headers: {
+                Cookie: sesion.sesionPHP
+            }
+        }
+    )
+        .then((cliente) => {
+            socket.emit("clienteAsignado", cliente)
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+
     socket.on("disconnect", async (data) => {
         const r = await consultaHTTP(
             `${sesion.servidor}/callcenter/ActualizaClienteEncuestaPostventa`,
