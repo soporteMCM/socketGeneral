@@ -26,8 +26,8 @@ const callcenter = (socket, sesiones) => {
         })
             .then((cliente) => {
                 try {
+                    console.log(cliente)
                     const datos = JSON.parse(cliente)
-                    console.log(datos)
 
                     sesiones[socket.id].cliente = datos.success ? datos.datos.CLIENTE : null
                     sesiones[socket.id].telefono = datos.success ? datos.datos.TELEFONO : null
