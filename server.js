@@ -1,9 +1,9 @@
-// Importar dependencias
 import https from "https"
 import express from "express"
 import { Server } from "socket.io"
-import axios from "axios"
 import fs from "node:fs"
+
+import callcenter from "./callCenter.js"
 
 // Crear objetos requeridos
 const certificado = {
@@ -18,70 +18,19 @@ const io = new Server(server, {
         methods: ["GET", "POST"]
     }
 })
+const sesiones = {}
 
-// Evento de conexión
+// Evento de conexión principal
 io.on("connection", (socket) => {
     switch (socket.handshake.query.modulo) {
         case "callcenter":
-            callcenter(socket)
+            callcenter(socket, sesiones)
             break
         default:
-            console.log("Módulo no identificado")
+            console.log(`Módulo no reconocido: ${socket.handshake.query.modulo}`)
             break
     }
 })
-
-const archivoPHP = (archivo, parametros = null) => {
-    const { exec } = require("child_process")
-    exec(`php ${archivo} ${parametros}`, (error, stdout, stderr) => {
-        if (!error) return stderr
-        return stdout
-    })
-}
-
-const consultaHTTP = async (url, datos = null, config = null) => {
-    try {
-        const response = datos ? await axios.get(url, config) : await axios.post(url, datos, config)
-        return response.data
-    } catch (error) {
-        return error
-    }
-}
-
-const callcenter = (socket) => {
-    const sesion = {}
-    sesion.asesor = socket.handshake.query.asesor
-    sesion.sesionPHP = socket.handshake.query.sesionPHP
-
-    consultaHTTP(
-        `${sesion.servidor}/callcenter/AsignaClienteEncuestaPostventa`,
-        { asesor: sesion.asesor },
-        {
-            headers: {
-                Cookie: sesion.sesionPHP
-            }
-        }
-    )
-        .then((cliente) => {
-            socket.emit("clienteAsignado", cliente)
-        })
-        .catch((error) => {
-            console.log(error)
-        })
-
-    socket.on("disconnect", async (data) => {
-        const r = await consultaHTTP(
-            `${sesion.servidor}/callcenter/ActualizaClienteEncuestaPostventa`,
-            { asesor: sesion.asesor },
-            {
-                headers: {
-                    Cookie: sesion.sesionPHP
-                }
-            }
-        )
-        console.log(r)
-    })
-}
 
 // Iniciar el servidor
 const PORT = 8009
