@@ -27,6 +27,8 @@ const callcenter = (socket, sesiones) => {
             .then((cliente) => {
                 try {
                     const datos = JSON.parse(cliente)
+                    console.log(datos)
+
                     sesiones[socket.id].cliente = datos.success ? datos.datos.CLIENTE : null
                     sesiones[socket.id].telefono = datos.success ? datos.datos.TELEFONO : null
                     sesiones[socket.id].tiempo = new Date().getTime()
