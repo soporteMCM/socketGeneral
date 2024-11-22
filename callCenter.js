@@ -12,7 +12,7 @@ const callcenter = (socket, sesiones) => {
             new URLSearchParams(datos),
             {
                 headers: {
-                    Cookie: sesiones[socket.id].sesionPHP
+                    Cookie: `PHPSESSID=${sesiones[socket.id].sesionPHP}`
                 }
             }
         )
@@ -35,7 +35,8 @@ const callcenter = (socket, sesiones) => {
                     console.log(error)
                     socket.emit("clienteAsignado", {
                         success: false,
-                        mensaje: "Error al procesar la respuesta del servidor"
+                        mensaje: "Error al procesar la respuesta del servidor",
+                        error
                     })
                 }
             })
