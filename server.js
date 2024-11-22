@@ -18,6 +18,7 @@ const io = new Server(server, {
         methods: ["GET", "POST"]
     }
 })
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"
 const sesiones = {}
 
 // Evento de conexión principal
