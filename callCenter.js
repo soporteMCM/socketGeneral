@@ -45,9 +45,9 @@ const callcenter = (socket, sesiones, io = null) => {
         })
             .then((cliente) => {
                 sesiones[socket.id].conteoClientes++
-                sesiones[socket.id].cliente = cliente.success ? datos.datos.CLIENTE : null
-                sesiones[socket.id].ciclo = cliente.success ? datos.datos.CICLO : null
-                sesiones[socket.id].telefono = cliente.success ? datos.datos.TELEFONO : null
+                sesiones[socket.id].cliente = cliente.success ? cliente.datos.CLIENTE : null
+                sesiones[socket.id].ciclo = cliente.success ? cliente.datos.CICLO : null
+                sesiones[socket.id].telefono = cliente.success ? cliente.datos.TELEFONO : null
                 sesiones[socket.id].tiempo = new Date().getTime()
                 socket.emit("clienteAsignado", cliente)
             })
