@@ -1,14 +1,13 @@
 {
-    "name": "prubas-socket",
+    "name": "socket_server",
     "version": "1.0.0",
-    "main": "index.js",
+    "main": "socketServer.js",
     "type": "module",
     "scripts": {
-        "test": "node --watch server.js",
-        "start": "node server.js"
+        "test": "node --watch --env-file=.env --env-file=.dev.env socketServer.js",
+        "start": "node --env-file=.env --env-file=.dev.env socketServer.js"
     },
-    "keywords": [],
-    "author": "",
+    "author": "Alberto Soto Ortega",
     "license": "ISC",
     "description": "",
     "dependencies": {

@@ -25,7 +25,7 @@ const sesiones = {}
 io.on("connection", (socket) => {
     switch (socket.handshake.query.modulo) {
         case "callcenter":
-            callcenter(socket, sesiones)
+            callcenter(socket, sesiones, io)
             break
         default:
             console.log(`Módulo no reconocido: ${socket.handshake.query.modulo}`)
@@ -34,7 +34,6 @@ io.on("connection", (socket) => {
 })
 
 // Iniciar el servidor
-const PORT = 8009
-server.listen(PORT, () => {
-    console.log(`Servidor en linea en el puerto ${PORT}`)
+server.listen(process.env.PUERTO, () => {
+    console.log("Servidor activo")
 })

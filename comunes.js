@@ -32,4 +32,8 @@ const consultaHTTP = async (url, datos = null, config = null) => {
     }
 }
 
-export { archivoPHP, consultaHTTP }
+const reportaError = (error) => {
+    if (process.env.DEV) console.log(Date(), error)
+}
+
+export { reportaError, archivoPHP, consultaHTTP }
