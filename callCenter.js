@@ -65,7 +65,8 @@ const callcenter = (socket, sesiones, io = null) => {
                 reportaError(error)
                 socket.emit("clienteAsignado", {
                     success: false,
-                    mensaje: "Error al realizar la consulta al servidor"
+                    mensaje: "Error al realizar la consulta al servidor",
+                    error
                 })
             })
     }
