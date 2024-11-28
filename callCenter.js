@@ -57,6 +57,7 @@ const callcenter = (socket, sesiones, io = null) => {
                     socket.emit("clienteAsignado", {
                         success: false,
                         mensaje: "Error al procesar la respuesta del servidor",
+                        datos,
                         error
                     })
                 }
