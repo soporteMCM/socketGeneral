@@ -45,22 +45,11 @@ const callcenter = (socket, sesiones, io = null) => {
         })
             .then((cliente) => {
                 sesiones[socket.id].conteoClientes++
-                try {
-                    const datos = JSON.parse(cliente)
-                    sesiones[socket.id].cliente = datos.success ? datos.datos.CLIENTE : null
-                    sesiones[socket.id].ciclo = datos.success ? datos.datos.CICLO : null
-                    sesiones[socket.id].telefono = datos.success ? datos.datos.TELEFONO : null
-                    sesiones[socket.id].tiempo = new Date().getTime()
-                    socket.emit("clienteAsignado", datos)
-                } catch (error) {
-                    reportaError(error)
-                    socket.emit("clienteAsignado", {
-                        success: false,
-                        mensaje: "Error al procesar la respuesta del servidor",
-                        cliente,
-                        error
-                    })
-                }
+                sesiones[socket.id].cliente = cliente.success ? datos.datos.CLIENTE : null
+                sesiones[socket.id].ciclo = cliente.success ? datos.datos.CICLO : null
+                sesiones[socket.id].telefono = cliente.success ? datos.datos.TELEFONO : null
+                sesiones[socket.id].tiempo = new Date().getTime()
+                socket.emit("clienteAsignado", cliente)
             })
             .catch((error) => {
                 reportaError(error)
