@@ -1,6 +1,10 @@
 import axios from "axios"
 import { exec } from "child_process"
 
+const reportaError = (error) => {
+    if (process.env.DEV) console.log(Date(), error)
+}
+
 /**
  * Ejecuta un archivo PHP con parámetros opcionales.
  *
@@ -30,10 +34,6 @@ const consultaHTTP = async (url, datos = null, config = null) => {
     } catch (error) {
         return error
     }
-}
-
-const reportaError = (error) => {
-    if (process.env.DEV) console.log(Date(), error)
 }
 
 export { reportaError, archivoPHP, consultaHTTP }
