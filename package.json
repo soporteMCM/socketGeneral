@@ -5,7 +5,7 @@
     "type": "module",
     "scripts": {
         "test": "node --watch --env-file=.env --env-file=.dev.env socketServer.js",
-        "start": "node --env-file=.env --env-file=.dev.env socketServer.js"
+        "iniciar": "node --env-file=.env socketServer.js"
     },
     "author": "Alberto Soto Ortega",
     "license": "ISC",
