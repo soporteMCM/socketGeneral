@@ -3,7 +3,8 @@ import express from "express"
 import { Server } from "socket.io"
 import fs from "node:fs"
 
-import callcenter from "./callCenter.js"
+import callcenter from "../Modules/callCenter.js"
+import superCallcenter from "../Modules/superCallcenter.js"
 
 // Crear objetos requeridos
 const certificado = {
@@ -19,13 +20,18 @@ const io = new Server(server, {
     }
 })
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"
-const sesiones = {}
+const sesiones = {
+    callcenter: {}
+}
 
 // Evento de conexión principal
 io.on("connection", (socket) => {
     switch (socket.handshake.query.modulo) {
         case "callcenter":
-            callcenter(socket, sesiones, io)
+            callcenter(socket, sesiones.callcenter, io)
+            break
+        case "superCallcenter":
+            superCallcenter(socket, sesiones.callcenter, io)
             break
         default:
             console.log(`Módulo no reconocido: ${socket.handshake.query.modulo}`)

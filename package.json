@@ -4,8 +4,8 @@
     "main": "socketServer.js",
     "type": "module",
     "scripts": {
-        "test": "node --watch --env-file=.env --env-file=.dev.env socketServer.js",
-        "iniciar": "node --env-file=.env socketServer.js"
+        "test": "node --watch --env-file=.env --env-file=.dev.env ./src/socketServer.js",
+        "iniciar": "node --env-file=.env ./src/socketServer.js"
     },
     "author": "Alberto Soto Ortega",
     "license": "ISC",

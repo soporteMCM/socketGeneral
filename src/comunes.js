@@ -36,4 +36,12 @@ const consultaHTTP = async (url, datos = null, config = null) => {
     }
 }
 
-export { reportaError, archivoPHP, consultaHTTP }
+const consultaPHP = (url, sesion, datos) => {
+    return consultaHTTP(url, new URLSearchParams(datos), {
+        headers: {
+            Cookie: `PHPSESSID=${sesion}`
+        }
+    })
+}
+
+export { reportaError, archivoPHP, consultaHTTP, consultaPHP }
